@@ -26,6 +26,7 @@ static float get_float(int argc, char **argv, int *i)
 
 void parse_options(struct options *opts, int argc, char **argv)
 {
+    opts->period = 35.0;
     opts->saturation = 0.65;
     opts->value = 0.9;
 
