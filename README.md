@@ -12,8 +12,8 @@ external libraries or other programs.
 ## Usage
 
 `coloricious` takes input from `stdin` and writes it colorized to `stdout`.
-The saturation and brightness of the rainbow output can be controlled with the
-environment variables `COLORICIOUS_SATURATION` and `COLORICIOUS_VALUE`.
+The saturation, brightness, and period can be controlled with the command-line
+flags `-s`, `-v`, and `-p`.
 
 ### Examples
 
