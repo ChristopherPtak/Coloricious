@@ -1,2 +1,5 @@
+
 # Coloricious
-Colorize terminal output
+
+_Colorize terminal output_
+
