@@ -9,7 +9,7 @@ struct options
 };
 
 // Parse command-line options
-void parse_options(struct options *);
+void parse_options(struct options *, int, char **);
 
 #endif
 

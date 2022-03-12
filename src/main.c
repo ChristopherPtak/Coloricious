@@ -9,8 +9,7 @@
 int main(int argc, char **argv)
 {
     struct options opts;
-
-    parse_options(&opts);
+    parse_options(&opts, argc, argv);
 
     int line = 0;
     int column = 0;
