@@ -6,6 +6,10 @@
 #include <stdlib.h>
 #include <time.h>
 
+//
+// Color definitions
+//
+
 static float truncate(float);
 
 struct color
@@ -17,6 +21,10 @@ struct color
 
 struct color randomcolor(void);
 struct color fromhsv(float, float, float);
+
+//
+// Color printing functions
+//
 
 static void color8bit(struct color);
 static void color24bit(struct color);
@@ -30,33 +38,43 @@ int main(void)
     int line = 0;
     int column = 0;
 
-    srand(time(NULL));
-
+    // Get and print one char at a time
     while ((c = getchar()) != -1) {
 
         if (c == '\n') {
+
             line += 1;
             column = 0;
+
+            // Print with an appropriate hue
+            float hue = 0.01 * ((column + line) % 100);
+            color24bit(fromhsv(hue, 1, 1));
+
         } else {
+
+            // Remove formatting at the end of each line
             column += 1;
+            uncolor();
+
         }
 
-        float hue = 0.01 * ((column + line) % 100);
-
-        color24bit(fromhsv(hue, 1, 1));
         putchar(c);
     }
 
+    // Remove formatting in case the input
+    // did not end with a newline character
     uncolor();
 
     return EXIT_SUCCESS;
 }
 
+// Keep a float within a certain range
 static float truncate(float f)
 {
     return fmax(0.0, fmin(f, 1.0));
 }
 
+// Get a random RGB color
 struct color randomcolor(void)
 {
     struct color rgb;
@@ -66,6 +84,7 @@ struct color randomcolor(void)
     return rgb;
 }
 
+// Convert from HSV to RGB
 struct color fromhsv(float h, float s, float v)
 {
     h = truncate(h);
@@ -108,6 +127,7 @@ struct color fromhsv(float h, float s, float v)
     return rgb;
 }
 
+// Switch to a color in 8-bit mode (xterm-256color)
 static void color8bit(struct color rgb)
 {
     int rc = round(6 * truncate(rgb.r));
@@ -117,6 +137,7 @@ static void color8bit(struct color rgb)
     printf("\e[38;5;%dm", cc);
 }
 
+// Switch to a color in 24-bit mode (most modern terminals)
 static void color24bit(struct color rgb)
 {
     int rc = round(255 * truncate(rgb.r));
@@ -125,6 +146,7 @@ static void color24bit(struct color rgb)
     printf("\e[38;2;%d;%d;%dm", rc, gc, bc);
 }
 
+// Remove color formatting
 static void uncolor(void)
 {
     printf("\e[0m");
