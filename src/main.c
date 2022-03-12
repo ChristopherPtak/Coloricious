@@ -1,4 +1,5 @@
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -35,7 +36,8 @@ int main(int argc, char **argv)
             column += 1;
 
             // Print with an appropriate hue
-            float hue = 0.02857 * ((column + line) % 35);
+            float distance = column + line;
+            float hue = fmod(distance, opts.period) / opts.period;
             color24bit(fromhsv(hue, opts.saturation, opts.value));
 
         }

@@ -4,6 +4,7 @@
 
 struct options
 {
+    float period;
     float saturation;
     float value;
 };

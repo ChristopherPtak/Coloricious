@@ -43,6 +43,7 @@ void parse_options(struct options *opts, int argc, char **argv)
                 "\n"
                 "Available options:\n"
                 "  -h, --help        Show this help text\n"
+                "  -p, --period      Set the color band period\n"
                 "  -s, --saturation  Set the output saturation\n"
                 "  -v, --value       Set the output brightness\n",
 
@@ -51,6 +52,8 @@ void parse_options(struct options *opts, int argc, char **argv)
 
             exit(EXIT_SUCCESS);
 
+        } else if (arg_match(arg, "-p", "--period")) {
+            opts->period = get_float(argc, argv, &i);
         } else if (arg_match(arg, "-s", "--saturation")) {
             opts->saturation = get_float(argc, argv, &i);
         } else if (arg_match(arg, "-v", "--value")) {
