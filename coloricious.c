@@ -25,21 +25,26 @@ static void uncolor(void);
 int main(void)
 {
     struct color rgb;
-    float hue = 0.0;
     int c;
+
+    int line = 0;
+    int column = 0;
 
     srand(time(NULL));
 
     while ((c = getchar()) != -1) {
 
+        if (c == '\n') {
+            line += 1;
+            column = 0;
+        } else {
+            column += 1;
+        }
+
+        float hue = 0.01 * ((column + line) % 100);
+
         color24bit(fromhsv(hue, 1, 1));
         putchar(c);
-
-        if (hue < 1.0) {
-            hue += 0.01;
-        } else {
-            hue = 0.0;
-        }
     }
 
     uncolor();
