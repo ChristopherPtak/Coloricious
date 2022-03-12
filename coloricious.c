@@ -32,12 +32,29 @@ static void uncolor(void);
 
 int main(int argc, char **argv)
 {
-    float saturation = 1.0;
-    float value = 1.0;
+    char *envstr;
+    float saturation = 0.65;
+    float value = 0.9;
+
+    //
+    // Get environment variables for config
+    // 
+
+    if ((envstr = getenv("COLORICIOUS_SATURATION")) != NULL) {
+        saturation = truncate(atof(envstr));
+    }
+
+    if ((envstr = getenv("COLORICIOUS_VALUE")) != NULL) {
+        saturation = truncate(atof(envstr));
+    }
 
     int line = 0;
     int column = 0;
     int c;
+
+    //
+    // Colorize contents of stdin
+    //
 
     // Get and print one char at a time
     while ((c = getchar()) != -1) {
