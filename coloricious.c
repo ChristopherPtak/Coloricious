@@ -33,6 +33,7 @@ static void uncolor(void);
 int main(int argc, char **argv)
 {
     char *envstr;
+
     float saturation = 0.65;
     float value = 0.9;
 
@@ -61,7 +62,7 @@ int main(int argc, char **argv)
 
         if (c == '\n') {
 
-            line += 1;
+            line += 2;
             column = 0;
 
             // Remove formatting at the end of each line
