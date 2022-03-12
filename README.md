@@ -1,0 +1,2 @@
+# Coloricious
+Colorize terminal output
