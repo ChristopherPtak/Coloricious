@@ -7,6 +7,18 @@
 #include <time.h>
 
 //
+// Command-line options
+//
+
+struct options
+{
+    float saturation;
+    float value;
+};
+
+static void parse_options(struct options *);
+
+//
 // Color definitions
 //
 
@@ -32,22 +44,9 @@ static void uncolor(void);
 
 int main(int argc, char **argv)
 {
-    char *envstr;
+    struct options opts;
 
-    float saturation = 0.65;
-    float value = 0.9;
-
-    //
-    // Get environment variables for config
-    // 
-
-    if ((envstr = getenv("COLORICIOUS_SATURATION")) != NULL) {
-        saturation = truncate(atof(envstr));
-    }
-
-    if ((envstr = getenv("COLORICIOUS_VALUE")) != NULL) {
-        saturation = truncate(atof(envstr));
-    }
+    parse_options(&opts);
 
     int line = 0;
     int column = 0;
@@ -74,7 +73,7 @@ int main(int argc, char **argv)
 
             // Print with an appropriate hue
             float hue = 0.02857 * ((column + line) % 35);
-            color24bit(fromhsv(hue, saturation, value));
+            color24bit(fromhsv(hue, opts.saturation, opts.value));
 
         }
 
@@ -86,6 +85,23 @@ int main(int argc, char **argv)
     uncolor();
 
     return EXIT_SUCCESS;
+}
+
+// Parse environment variables
+static void parse_options(struct options *opts)
+{
+    char *envstr;
+
+    opts->saturation = 0.65;
+    opts->value = 0.9;
+
+    if ((envstr = getenv("COLORICIOUS_SATURATION")) != NULL) {
+        opts->saturation = truncate(atof(envstr));
+    }
+
+    if ((envstr = getenv("COLORICIOUS_VALUE")) != NULL) {
+        opts->value = truncate(atof(envstr));
+    }
 }
 
 // Keep a float within a certain range
