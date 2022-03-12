@@ -30,13 +30,14 @@ static void color8bit(struct color);
 static void color24bit(struct color);
 static void uncolor(void);
 
-int main(void)
+int main(int argc, char **argv)
 {
-    struct color rgb;
-    int c;
+    float saturation = 1.0;
+    float value = 1.0;
 
     int line = 0;
     int column = 0;
+    int c;
 
     // Get and print one char at a time
     while ((c = getchar()) != -1) {
@@ -46,15 +47,16 @@ int main(void)
             line += 1;
             column = 0;
 
-            // Print with an appropriate hue
-            float hue = 0.01 * ((column + line) % 100);
-            color24bit(fromhsv(hue, 1, 1));
+            // Remove formatting at the end of each line
+            uncolor();
 
         } else {
 
-            // Remove formatting at the end of each line
             column += 1;
-            uncolor();
+
+            // Print with an appropriate hue
+            float hue = 0.02857 * ((column + line) % 35);
+            color24bit(fromhsv(hue, saturation, value));
 
         }
 
