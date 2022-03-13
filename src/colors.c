@@ -23,6 +23,11 @@ struct color randomcolor(void)
 
 struct color fromhsv(float h, float s, float v)
 {
+    struct color rgb;
+    rgb.r = 0.0;
+    rgb.g = 0.0;
+    rgb.b = 0.0;
+
     // Make sure H, S, and V are within the acceptable range
     h = truncate(h);
     s = truncate(s);
@@ -33,36 +38,31 @@ struct color fromhsv(float h, float s, float v)
     float x = chroma * (1 - fabs(fmod(h * 6, 2) - 1));
     float m = v - chroma;
 
-    float r1 = 0.0;
-    float g1 = 0.0;
-    float b1 = 0.0;
-
     // Assign RGB values based on hue
     if (h < 0.166666) {
-        r1 = chroma;
-        g1 = x;
+        rgb.r = chroma;
+        rgb.g = x;
     } else if (h < 0.333333) {
-        r1 = x;
-        g1 = chroma;
+        rgb.r = x;
+        rgb.g = chroma;
     } else if (h < 0.500000) {
-        g1 = chroma;
-        b1 = x;
+        rgb.g = chroma;
+        rgb.b = x;
     } else if (h < 0.666666) {
-        g1 = x;
-        b1 = chroma;
+        rgb.g = x;
+        rgb.b = chroma;
     } else if (h < 0.833334) {
-        r1 = x;
-        b1 = chroma;
+        rgb.r = x;
+        rgb.b = chroma;
     } else {
-        r1 = chroma;
-        b1 = x;
+        rgb.r = chroma;
+        rgb.b = x;
     }
 
     // Increase each value by the minimum
-    struct color rgb;
-    rgb.r = r1 + m;
-    rgb.g = g1 + m;
-    rgb.b = b1 + m;
+    rgb.r += m;
+    rgb.g += m;
+    rgb.b += m;
 
     return rgb;
 }
