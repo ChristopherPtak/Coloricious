@@ -8,6 +8,7 @@
 
 void color8bit(struct color rgb)
 {
+    // FIXME Colors do not show up correctly
     int rc = round(6 * truncate(rgb.r));
     int gc = round(6 * truncate(rgb.g));
     int bc = round(6 * truncate(rgb.b));
@@ -25,6 +26,7 @@ void color24bit(struct color rgb)
 
 void uncolor(void)
 {
+    // Delete all formatting
     printf("\e[0m");
 }
 

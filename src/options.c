@@ -6,11 +6,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Check whether the next argument matches a pattern
 static bool arg_match(const char *arg, const char *sopt, const char *lopt)
 {
     return strcmp(arg, sopt) == 0 || strcmp(arg, lopt) == 0;
 }
 
+// Get the next argument and convert it to float
 static float get_float(int argc, char **argv, int *i)
 {
     if (++(*i) == argc) {
@@ -26,6 +28,7 @@ static float get_float(int argc, char **argv, int *i)
 
 void parse_options(struct options *opts, int argc, char **argv)
 {
+    // Set defaults
     opts->period = 35.0;
     opts->saturation = 0.65;
     opts->value = 0.9;
