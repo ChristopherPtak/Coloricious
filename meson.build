@@ -12,5 +12,5 @@ sources = [
     'src/output.c'
 ]
 
-executable('coloricious', sources, dependencies: m_dep)
+executable('coloricious', sources, dependencies: m_dep, install: true)
 

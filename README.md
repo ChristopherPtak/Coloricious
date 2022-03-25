@@ -42,5 +42,7 @@ This project is built using `meson` and `ninja`.
 
 ### Install
 
-To install, copy the executable `build/coloricious` to an executable directory,
-for example to `~/.local/bin` or `/usr/local/bin`.
+To install, run
+```
+$ ninja -C build install
+```
