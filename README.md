@@ -1,6 +1,8 @@
 
 # Coloricious
 
+![Example screenshot](https://raw.githubusercontent.com/ChristopherPtak/Coloricious/main/coloricious.png)
+
 _A tool to colorize terminal output_
 
 ## Description
