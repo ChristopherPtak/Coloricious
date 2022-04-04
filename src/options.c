@@ -32,6 +32,7 @@ void parse_options(struct options *opts, int argc, char **argv)
     opts->period = 35.0;
     opts->saturation = 0.65;
     opts->value = 0.9;
+    opts->escaped = false;
 
     for (int i = 1; i < argc; ++i) {
 
@@ -49,7 +50,8 @@ void parse_options(struct options *opts, int argc, char **argv)
                 "  -h, --help        Show this help text\n"
                 "  -p, --period      Set the color band period\n"
                 "  -s, --saturation  Set the output saturation\n"
-                "  -v, --value       Set the output brightness\n",
+                "  -v, --value       Set the output brightness\n"
+                "  -e, --escape      Write literal \\ characters\n";
 
                 stdout
             );
@@ -62,6 +64,8 @@ void parse_options(struct options *opts, int argc, char **argv)
             opts->saturation = get_float(argc, argv, &i);
         } else if (arg_match(arg, "-v", "--value")) {
             opts->value = get_float(argc, argv, &i);
+        } else if (arg_match(arg, "-e", "--escaped")) {
+            opts->escaped = true;
         } else {
             fprintf(stderr, "coloricious: %s: Unknown argument\n", arg);
             exit(EXIT_FAILURE);

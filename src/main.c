@@ -30,7 +30,7 @@ int main(int argc, char **argv)
             column = 0;
 
             // Remove formatting at the end of each line
-            uncolor();
+            uncolor(opts.escaped);
 
         } else {
 
@@ -41,7 +41,8 @@ int main(int argc, char **argv)
                 // Print with an appropriate hue
                 float distance = column + line;
                 float hue = fmod(distance, opts.period) / opts.period;
-                color24bit(fromhsv(hue, opts.saturation, opts.value));
+                color24bit(fromhsv(hue, opts.saturation, opts.value),
+                           opts.escaped);
             }
 
         }
@@ -51,7 +52,7 @@ int main(int argc, char **argv)
 
     // Remove formatting in case the input
     // did not end with a newline character
-    uncolor();
+    uncolor(opts.escaped);
 
     return EXIT_SUCCESS;
 }
