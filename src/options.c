@@ -51,7 +51,7 @@ void parse_options(struct options *opts, int argc, char **argv)
                 "  -p, --period      Set the color band period\n"
                 "  -s, --saturation  Set the output saturation\n"
                 "  -v, --value       Set the output brightness\n"
-                "  -e, --escape      Write literal \\ characters\n";
+                "  -e, --escape      Write literal \\ characters\n",
 
                 stdout
             );
