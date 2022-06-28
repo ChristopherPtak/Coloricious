@@ -68,6 +68,7 @@ void parse_options(struct options *opts, int argc, char **argv)
             opts->escaped = true;
         } else {
             fprintf(stderr, "coloricious: %s: Unknown argument\n", arg);
+            fprintf(stderr, "Try --help for usage info\n");
             exit(EXIT_FAILURE);
         }
 
