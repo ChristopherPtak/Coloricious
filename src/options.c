@@ -34,6 +34,9 @@ void parse_options(struct options *opts, int argc, char **argv)
     opts->value = 0.9;
     opts->escaped = false;
 
+    opts->num_files = 0;
+    opts->files = calloc(argc, sizeof(const char *));
+
     for (int i = 1; i < argc; ++i) {
 
         const char *arg = argv[i];
@@ -67,11 +70,14 @@ void parse_options(struct options *opts, int argc, char **argv)
         } else if (arg_match(arg, "-e", "--escaped")) {
             opts->escaped = true;
         } else {
-            fprintf(stderr, "coloricious: %s: Unknown argument\n", arg);
-            fprintf(stderr, "Try --help for usage info\n");
-            exit(EXIT_FAILURE);
+            opts->files[opts->num_files++] = argv[i];
         }
 
     }
+}
+
+void clear_options(struct options *opts)
+{
+    free(opts->files);
 }
 
