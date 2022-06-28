@@ -8,21 +8,31 @@
 #include "colors.h"
 #include "output.h"
 
+static void colorize_file(FILE *, struct options *);
+
 int main(int argc, char **argv)
 {
     struct options opts;
     parse_options(&opts, argc, argv);
 
+    // Print a colorized version of stdin
+    colorize_file(stdin, &opts);
+
+    // Remove formatting in case the input
+    // did not end with a newline character
+    uncolor(opts.escaped);
+
+    return EXIT_SUCCESS;
+}
+
+static void colorize_file(FILE *f, struct options *opts)
+{
     int line = 0;
     int column = 0;
     int c;
 
-    //
-    // Colorize contents of stdin
-    //
-
     // Get and print one char at a time
-    while ((c = getchar()) != -1) {
+    while ((c = fgetc(f)) != -1) {
 
         if (c == '\n') {
 
@@ -30,7 +40,7 @@ int main(int argc, char **argv)
             column = 0;
 
             // Remove formatting at the end of each line
-            uncolor(opts.escaped);
+            uncolor(opts->escaped);
 
         } else {
 
@@ -40,20 +50,14 @@ int main(int argc, char **argv)
             if (isprint(c) && (! isspace(c))) {
                 // Print with an appropriate hue
                 float distance = column + line;
-                float hue = fmod(distance, opts.period) / opts.period;
-                color24bit(fromhsv(hue, opts.saturation, opts.value),
-                           opts.escaped);
+                float hue = fmod(distance, opts->period) / opts->period;
+                color24bit(fromhsv(hue, opts->saturation, opts->value),
+                           opts->escaped);
             }
 
         }
 
         putchar(c);
     }
-
-    // Remove formatting in case the input
-    // did not end with a newline character
-    uncolor(opts.escaped);
-
-    return EXIT_SUCCESS;
 }
 
